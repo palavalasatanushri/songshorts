@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">songshorts</string>
+    <string name="title_activity_main">songshorts</string>
+    <string name="package_name">com.songshorts.app</string>
+    <string name="custom_url_scheme">com.songshorts.app</string>
+</resources>

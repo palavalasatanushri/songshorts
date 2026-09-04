@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Global Design Tokens ─────────────────────────────────────── */
+:root {
+  --brand:      #D946EF;   /* Banana yellow — primary accent */
+  --brand-dim:  #c9bc1a;   /* Darker yellow for hover */
+  --glass-bg:   rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+    /* Kill the Chrome dictionary popup on long-press */
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  /* Only allow selection inside actual input fields */
+  input, textarea {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+  html, body, #root {
+    width: 100%;
+    height: 100%;
+    max-height: 100dvh;
+    overflow: hidden;
+    /* Rich dark background with subtle purple hue for glass to pop against */
+    background: #0a0a0f;
+    color: #f0eee8;
+    font-family: 'Montserrat', 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ── Material Symbols ─────────────────────────────────────────── */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 1;
+  user-select: none;
+}
+
+/* ── Font family polyfills ────────────────────────────────────── */
+.font-headline-lg-mobile,
+.font-headline-lg,
+.font-headline-md,
+.font-body-lg,
+.font-body-md,
+.font-label-bold,
+.font-label-sm,
+.font-display-lg {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* ── Glassmorphism base classes ───────────────────────────────── */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+.glass-dark {
+  background: rgba(10, 10, 20, 0.55);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+}
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+/* ── Brand utility ─────────────────────────────────────────────── */
+.brand-bg  { background: #D946EF; }
+.brand-text { color: #D946EF; }
+.brand-border { border-color: #D946EF; }
+.brand-glow { box-shadow: 0 0 20px rgba(245, 230, 66, 0.35); }
+
+/* ── Inner scrollable areas ──────────────────────────────────── */
+.inner-scroll {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.inner-scroll::-webkit-scrollbar { width: 3px; }
+.inner-scroll::-webkit-scrollbar-track { background: transparent; }
+.inner-scroll::-webkit-scrollbar-thumb { background: rgba(245, 230, 66, 0.2); border-radius: 99px; }
+
+/* Hide scrollbar for snapping feed */
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* ── Animated ambient background orbs ───────────────────────── */
+.ambient-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  animation: drift 18s ease-in-out infinite alternate;
+}
+@keyframes drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(30px, -20px) scale(1.05); }
+}
+
+/* ── Page transitions ─────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-enter { animation: fadeIn 0.22s ease-out forwards; }
+
+/* ── Input focus ring in brand yellow ────────────────────────── */
+input:focus, textarea:focus {
+  outline: none;
+  border-color: rgba(245, 230, 66, 0.6) !important;
+  box-shadow: 0 0 0 3px rgba(245, 230, 66, 0.12);
+}
+
+/* ── Active press scale for buttons ─────────────────────────── */
+button:active { transform: scale(0.96); }
+
+/* ── Now Playing slide-up modal ──────────────────────────────── */
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+@keyframes slideDown {
+  from { transform: translateY(0);    opacity: 1; }
+  to   { transform: translateY(100%); opacity: 0; }
+}
+.now-playing-enter { animation: slideUp 0.38s cubic-bezier(0.32, 0.72, 0, 1) forwards; }
+.now-playing-exit  { animation: slideDown 0.3s ease-in forwards; }
+
